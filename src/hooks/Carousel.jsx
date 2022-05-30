@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Increment from "../utils/increment";
 
 const Carousel = () => {
   const [imageNumber, setImageNumber] = useState(0);
@@ -11,31 +12,12 @@ const Carousel = () => {
   ];
 
   const handleIncrement = (rightOrLeft) => {
-    if (rightOrLeft === "left") {
-      setOpacity(0);
-      if (imageNumber > 0)
-        setTimeout(() => {
-          setImageNumber(imageNumber - 1);
-          setOpacity(1);
-        }, 300);
-      else
-        setTimeout(() => {
-          setImageNumber(images.length - 1);
-          setOpacity(1);
-        }, 300);
-    } else if (rightOrLeft === "right") {
-      setOpacity(0);
-      if (imageNumber !== images.length - 1)
-        setTimeout(() => {
-          setImageNumber(imageNumber + 1);
-          setOpacity(1);
-        }, 300);
-      else
-        setTimeout(() => {
-          setImageNumber(0);
-          setOpacity(1);
-        }, 300);
-    }
+    const newImageNumber = Increment(imageNumber, images.length, rightOrLeft);
+    setOpacity(0);
+    setTimeout(() => {
+      setImageNumber(newImageNumber);
+      setOpacity(1);
+    }, 300);
   };
 
   return (
